@@ -1,6 +1,6 @@
 #ifndef  logreader_INC
 #define  logreader_INC
-#include "data.h"
+#include "dms_data.h"
 #include <list>
 using std::list;
 class LogReader{
