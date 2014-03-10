@@ -25,6 +25,9 @@ list<MatchedLogRec> LogReader::readLogs()
 	printf("logins:%zu\n",logins.size());
 	printf("logouts:%zu\n",logouts.size());
 	matchLogRec();
+	printf("matches:%zu\n",matches.size());
+	printf("logins:%zu\n",logins.size());
+	printf("logouts:%zu\n",logouts.size());
 	saveFailLogins();
 	return matches;
 }
@@ -61,7 +64,7 @@ void LogReader::readBackupFile()
 		read(fd,&log.pid,4);     //process id
 		log.pid=htonl(log.pid);
 		read(fd,&log.logtype,2); //logtype
-		log.logtype=htons(2);
+		log.logtype=htons(log.logtype);
 		lseek(fd,6,SEEK_CUR);
 		read(fd,&log.logtime,4); //logtime(msc)
 		log.logtime=htonl(log.logtime);
@@ -88,6 +91,26 @@ void LogReader::matchLogRec()
 	 * 4. 如果本次没找到,继续查找,直到查找结束
 	 * 5. 清空登出集合
 	 */
+	typedef list<LogRec>::iterator iter;
+	for (iter oit=logouts.begin(); oit!=logouts.end(); ++oit){
+		for (iter iit=logins.begin(); iit!=logins.end(); ++iit){
+			if (!strcmp(iit->logname,oit->logname) &&
+				iit->pid == oit->pid &&
+				!strcmp(iit->logip,oit->logip)){
+				MatchedLogRec mlog;
+				strcpy(mlog.logname, iit->logname);
+				mlog.pid = iit->pid;
+				mlog.logintime = iit->logtime;
+				mlog.logouttime = oit->logtime;
+				mlog.durations = oit->logtime-iit->logtime;
+				strcpy(mlog.logip,iit->logip);
+				matches.push_back(mlog);
+				logins.erase(iit);
+				break;
+			}
+		}
+	}
+	logouts.clear();
 }
 
 void LogReader::saveFailLogins()
