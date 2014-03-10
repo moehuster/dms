@@ -56,7 +56,7 @@ void LogReader::readBackupFile()
 	struct stat flog={0};
 	fstat(fd,&flog);
 	printf("%zu\n",flog.st_size);
-	int count=flog.st_size/327;
+	int count=flog.st_size/372;
 	LogRec log;
 	for (int i=0; i<count; ++i){
 		read(fd,&log.logname,32);//login name
@@ -70,6 +70,7 @@ void LogReader::readBackupFile()
 		log.logtime=htonl(log.logtime);
 		lseek(fd,30,SEEK_CUR);
 		read(fd,&log.logip,257); //login ip
+		lseek(fd,1,SEEK_CUR);
 		printf("%s: %hd\n",log.logname,log.logtype);
 		if (log.logname[0]!='.'){
 			if (log.logtype==7)
