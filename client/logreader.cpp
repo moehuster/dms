@@ -53,7 +53,7 @@ void LogReader::readBackupFile()
 		perror("open");
 		return;
 	}
-	struct stat flog={0};
+	struct stat flog;
 	fstat(fd,&flog);
 	printf("%zu\n",flog.st_size);
 	int count=flog.st_size/372;

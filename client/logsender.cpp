@@ -1,6 +1,7 @@
 #include "logsender.h"
 #include <cstring>
 #include <cstdio>
+#include <unistd.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
 
@@ -12,6 +13,12 @@ LogSender::LogSender():port(8899)
 
 LogSender::~LogSender()
 {
+}
+
+bool LogSender::sendMatches(const MatchedLogRec& mlog)
+{
+	int sfd=send(fd,&mlog,sizeof(mlog),0);
+	return sfd<=0?false:true;
 }
 
 void LogSender::sendMatches(list<MatchedLogRec>& matches)
@@ -50,4 +57,5 @@ void LogSender::readSendFailed(list<MatchedLogRec>& matches)
 
 void LogSender::saveSendFailed(list<MatchedLogRec>& matches)
 {
+	close(fd);
 }

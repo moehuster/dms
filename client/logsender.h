@@ -13,6 +13,7 @@ public:
 	LogSender();
 	~LogSender();
 	void initNetwork();
+	bool sendMatches(const MatchedLogRec& mlog);
 	void sendMatches(list<MatchedLogRec>& matches);
 	void readSendFailed(list<MatchedLogRec>& matches);
 	void saveSendFailed(list<MatchedLogRec>& matches);

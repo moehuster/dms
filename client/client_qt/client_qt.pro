@@ -4,5 +4,7 @@
 
 # Modified by moehuster
 TEMPLATE = app
-HEADERS += dms_client.h mythread.h
-SOURCES += dms_client.cpp mythread.cpp client_qt.cpp
+INCLUDEPATH += ../../include ..
+HEADERS += dms_client.h mythread.h ../logreader.h ../logsender.h
+SOURCES += dms_client.cpp mythread.cpp client_qt.cpp \
+           ../logreader.cpp ../logsender.cpp
