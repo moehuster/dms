@@ -4,5 +4,5 @@
 
 # Modified by moehuster
 TEMPLATE = app
-HEADERS += dms_client.h
-SOURCES += dms_client.cpp client_test.cpp
+HEADERS += dms_client.h mythread.h
+SOURCES += dms_client.cpp mythread.cpp client_qt.cpp
