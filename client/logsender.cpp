@@ -1,6 +1,7 @@
 #include "logsender.h"
 #include <cstring>
-#include <sys/socket>
+#include <cstdio>
+#include <sys/socket.h>
 #include <arpa/inet.h>
 
 LogSender::LogSender():port(8899)
@@ -13,12 +14,12 @@ LogSender::~LogSender()
 {
 }
 
-void LogSender::sendMatches(list<MatchedLogRec> matches)
+void LogSender::sendMatches(list<MatchedLogRec>& matches)
 {
 	readSendFailed(matches);
 	initNetwork();
 	//循环发送数据,发送一条就删除一条
-	while (matches->size()){
+	while (matches.size()){
 		send(fd,&matches.front(),sizeof(MatchedLogRec),0);
 		matches.pop_front();
 	}
@@ -43,10 +44,10 @@ void LogSender::initNetwork()
 	}
 }
 
-void LogSender::readSendFailed(list<MatchedLogRec> matches)
+void LogSender::readSendFailed(list<MatchedLogRec>& matches)
 {
 }
 
-void LogSender::saveSendFailed(list<MatchedLogRec> matches)
+void LogSender::saveSendFailed(list<MatchedLogRec>& matches)
 {
 }

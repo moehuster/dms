@@ -4,8 +4,8 @@ INC_DIR  = ../include
 SYS_LIBS = -lm
 CCFLAGS  = -O2 -Wall -std=c++0x
 LIB_DIR  = 
-TARGETS  = main except.out file.out
-OBJECTS  = logreader.o logreader_test.o
+TARGETS  = main
+OBJECTS  = logreader.o logsender.o client_test.o
 all:$(TARGETS)
 
 file.out: file_test.o

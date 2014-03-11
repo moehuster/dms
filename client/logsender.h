@@ -13,9 +13,9 @@ public:
 	LogSender();
 	~LogSender();
 	void initNetwork();
-	void sendMatches(list<MatchedLogRec> matches);
-	void readSendFailed(list<MatchedLogRec> matches);
-	void saveSendFailed(list<MatchedLogRec> matches);
+	void sendMatches(list<MatchedLogRec>& matches);
+	void readSendFailed(list<MatchedLogRec>& matches);
+	void saveSendFailed(list<MatchedLogRec>& matches);
 };
 
 #endif   /* ----- #ifndef logsender_INC  ----- */
