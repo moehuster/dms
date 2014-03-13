@@ -1,7 +1,6 @@
 #ifndef  dms_client_INC
 #define  dms_client_INC
 #include <QDialog>
-#include <QObject>
 #include <QPushButton>
 #include <QTextBrowser>
 #include <boost/shared_ptr.hpp>
@@ -20,6 +19,7 @@ public:
 public slots:
 	//完成数据的发送和显示
 	void startClient();
+public slots:
 	void setData(QString par);
 };
 #endif   /* ----- #ifndef dms_client_INC  ----- */

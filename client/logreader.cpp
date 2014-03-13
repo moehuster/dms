@@ -71,7 +71,6 @@ void LogReader::readBackupFile()
 		lseek(fd,30,SEEK_CUR);
 		read(fd,&log.logip,257); //login ip
 		lseek(fd,1,SEEK_CUR);
-		printf("%s: %hd\n",log.logname,log.logtype);
 		if (log.logname[0]!='.'){
 			if (log.logtype==7)
 				logins.push_back(log);

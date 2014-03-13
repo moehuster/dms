@@ -1,5 +1,4 @@
 #include "dms_client.h"
-#include <pthread.h>
 
 dmsClient::dmsClient():
 	myth(new myThread()),
@@ -19,17 +18,6 @@ dmsClient::dmsClient():
 
 dmsClient::~dmsClient()
 {
-}
-
-//处理数据的线程函数
-void* processData(void* par)
-{
-	QTextBrowser* data=(QTextBrowser*)par;
-	sleep(3);
-	data->append("send data to server");
-	sleep(3);
-	data->append("client stop");
-	return par;
 }
 
 //完成数据的发送和显示

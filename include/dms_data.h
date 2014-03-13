@@ -1,5 +1,5 @@
-#ifndef  data_INC
-#define  data_INC
+#ifndef  dms_data_INC
+#define  dms_data_INC
 // login and logout records
 struct LogRec{
 	char logname[32];
@@ -18,4 +18,4 @@ struct MatchedLogRec{
 	char logip[257];
 	char labip[20];
 };
-#endif   /* ----- #ifndef data_INC  ----- */
+#endif   /* ----- #ifndef dms_data_INC  ----- */

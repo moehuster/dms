@@ -12,10 +12,10 @@ void myThread::run()
 	char buf[128];
 	while (matches.size()){
 		sleep(1);
-		bool ret=logsender.sendMatches(matches.front());
-		if (!ret) break;
-		sprintf(buf,"%s:%d:%s",matches.front().logname,
-			matches.front().pid,matches.front().logip);
+		MatchedLogRec mlog=matches.front();
+		if (!logsender.sendMatches(mlog)) break;
+		sprintf(buf,"%s:%d:%s",mlog.logname,mlog.pid,mlog.logip);
+		emit mysig(QString(buf));
 		matches.pop_front();
 	}
 	//保存发送失败数据并关闭连接

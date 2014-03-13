@@ -1,4 +1,5 @@
 #include "userdata.h"
+#include <stdio.h>
 #include <unistd.h>
 #include <arpa/inet.h>
 #include <sys/socket.h>
@@ -20,6 +21,8 @@ int main(int argc, char *argv[])
 		return 2;
 	}
 	listen(fd,10);
+	Customer cust;
+	cust.start();
 	for (;;){
 		struct sockaddr_in caddr;
 		socklen_t clen=sizeof(caddr);
@@ -28,8 +31,6 @@ int main(int argc, char *argv[])
 			perror("accept");
 			return 3;
 		}
-//		pthread_t pid;
-//		pthread_create(&pid,0,receive_data,&afd);
 		Producter prod(afd);
 		prod.start();
 	}
