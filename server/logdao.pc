@@ -1,0 +1,38 @@
+#include "logdao.h"
+#include <cstring>
+exec sql include sqlca;
+
+exec sql begin declare section;
+char userpass[30];
+struct logtype{
+	char logname[32];
+	int pid;
+	int logintime;
+	int logouttime;
+	int durations;
+	char logip[257];
+	char labip[20];
+}tlog;
+exec sql end declare section;
+
+void Logdao::connect(char* pass)
+{
+	strcpy(userpass,pass);
+	exec sql connect:userpass;
+}
+
+void Logdao::savedata(MatchedLogRec& mlog)
+{
+	memcpy(&tlog,&mlog,sizeof(mlog));
+	exec sql insert into testlog values(:tlog);
+}
+
+void Logdao::commit()
+{
+	exec sql commit;
+}
+
+void Logdao::disconnect()
+{
+	exec sql commit work release;
+}
